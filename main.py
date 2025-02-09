@@ -19,15 +19,19 @@ screen.onkey(snake.turn_up, "Up")
 screen.onkey(snake.turn_down, "Down")
 screen.onkey(snake.turn_left, "Left")
 screen.onkey(snake.turn_right, "Right")
+screen.onkey(screen.bye, "Escape")
 
 game_is_on = True
 
+# Opening high score file and updating the high score:
 try:
     with open("high_score.txt", mode="r") as file:
         high_score = file.read()
-        if high_score:
+        if high_score.isdigit():
             scoreboard.high_score = int(high_score)
-            scoreboard.reset()
+        else:
+            scoreboard.high_score = 0
+        scoreboard.reset()
 except FileNotFoundError:
     scoreboard.high_score = 0
 
@@ -60,7 +64,6 @@ while game_is_on:
         time.sleep(1)
 
 scoreboard.game_over()
-
 
 
 screen.exitonclick()
